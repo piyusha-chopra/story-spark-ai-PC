@@ -37,9 +37,14 @@ const ExploreViewListComponent: React.FC<IExploreViewListComponentProps> = ({
 
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60 pointer-events-none"></div>
 
-                <span className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md border border-slate-600 text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                  {story.tag}
-                </span>
+                <div className="absolute top-4 left-4 flex gap-2">
+                  <span className="bg-slate-900/80 backdrop-blur-md border border-slate-600 text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                    {story.tag}
+                  </span>
+                  <span className="bg-slate-900/80 backdrop-blur-md border border-slate-600 text-indigo-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                    🌐 {story.language || "English"}
+                  </span>
+                </div>
               </div>
 
               <div className="p-6 flex-1 flex flex-col">

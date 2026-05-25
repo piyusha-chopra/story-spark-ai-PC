@@ -10,10 +10,10 @@ import httpStatus from "http-status";
 const aiModelGenerate = async (payload: IAIModel, token: ITokenPayload) => {
   try {
     const { email } = token;
-    const { prompt, wordLength, numStories } = payload;
+    const { prompt, wordLength, numStories, language } = payload;
     const result = await Promise.race([
       timeoutLimit(60000),
-      generateWithGeminiStories(prompt, wordLength, numStories),
+      generateWithGeminiStories(prompt, wordLength, numStories, language),
     ]);
 
     if (result) {
@@ -46,10 +46,10 @@ const aiModelGenerate = async (payload: IAIModel, token: ITokenPayload) => {
 
 const aiFreeModelGenerate = async (payload: IAIModel) => {
   try {
-    const { prompt } = payload;
+    const { prompt, language } = payload;
     const result = await Promise.race([
       timeoutLimit(10000),
-      generateWithGeminiStories(prompt, 150),
+      generateWithGeminiStories(prompt, 150, 2, language),
     ]);
     return result;
   } catch (error) {
@@ -63,10 +63,10 @@ const aiModelAlternateEndings = async (
 ) => {
   try {
     const { email } = token;
-    const { title, content, tag } = payload;
+    const { title, content, tag, language } = payload;
     const result = await Promise.race([
       timeoutLimit(60000),
-      generateAlternateEndingsWithGemini(title, content, tag),
+      generateAlternateEndingsWithGemini(title, content, tag, language),
     ]);
 
     if (result) {
@@ -99,10 +99,10 @@ const aiModelAlternateEndings = async (
 
 const aiFreeModelAlternateEndings = async (payload: IAlternateEndingPayload) => {
   try {
-    const { title, content, tag } = payload;
+    const { title, content, tag, language } = payload;
     const result = await Promise.race([
       timeoutLimit(60000),
-      generateAlternateEndingsWithGemini(title, content, tag),
+      generateAlternateEndingsWithGemini(title, content, tag, language),
     ]);
     return result;
   } catch (error) {
