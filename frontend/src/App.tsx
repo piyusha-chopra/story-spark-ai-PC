@@ -71,7 +71,6 @@ const ProtectedRoute = ({
   // Dynamically renders the active nested matching sub-child route
   return <Outlet />;
 };
-
 // =========================================================================
 // 2. CENTRAL ROUTER MATRIX (Initialized exactly once in the global scope)
 // =========================================================================
