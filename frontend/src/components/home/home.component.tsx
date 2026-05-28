@@ -8,6 +8,7 @@ import ResourceComponent from "./resources/resources.component";
 import PricingComponent from "./pricing/pricing.component";
 import WriterFeedbackComponent from "./writer_feedback/writer_feedback.component";
 import StartWritingComponent from "./start_writing/start_writing.component";
+import PersonalizedRecommendationsComponent from "./personalized_recommendations/personalized_recommendations.component";
 import { isLoggedIn } from "../../services/auth.service";
 
 const HomeComponent = () => {
@@ -23,6 +24,7 @@ const HomeComponent = () => {
           <div className="col-span-12 lg:col-span-4 min-w-0">
             <div className="sticky top-24 space-y-6">
               {isLogin && <FeatureProfileComponent />}
+              {isLogin && <PersonalizedRecommendationsComponent />}
               <TrendingTopicComponent />
               <RecommendedWritersComponent />
             </div>

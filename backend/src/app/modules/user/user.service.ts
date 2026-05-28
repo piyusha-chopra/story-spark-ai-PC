@@ -5,7 +5,6 @@ import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import { Post } from "../post/post.model";
 import httpStatus from "http-status";
-import { Post } from "../post/post.model";
 import { Comment } from "../comment/comment.model";
 import { Reaction } from "../reaction/reaction.model";
 import { Bookmark } from "../bookmark/bookmark.model";

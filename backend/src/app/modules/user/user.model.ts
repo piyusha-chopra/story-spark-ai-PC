@@ -53,6 +53,21 @@ export const UserSchema: Schema<IUser> = new Schema<IUser, UserModel>(
     lastRequestDate: { type: Date, default: null },
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     isApplyForWriter: { type: Boolean, default: false },
+    readingPreferences: {
+      favoriteGenres: [
+        {
+          name: { type: String },
+          count: { type: Number, default: 0 },
+        },
+      ],
+      favoriteEmotions: [
+        {
+          name: { type: String },
+          count: { type: Number, default: 0 },
+        },
+      ],
+    },
+    readingHistory: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   },
   {
     timestamps: true,

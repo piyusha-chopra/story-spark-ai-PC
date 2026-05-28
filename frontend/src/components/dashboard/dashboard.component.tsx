@@ -250,22 +250,22 @@ const DashboardComponent = () => {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               <div className="rounded-2xl border border-blue-100 bg-slate-50/50 p-6 dark:border-blue-500/15 dark:bg-white/[0.02]">
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Users Distribution</h2>
-                <UsersPieChart data={data.users} />
+                <UsersPieChart data={data.users!} />
               </div>
 
               <div className="rounded-2xl border border-emerald-100 bg-slate-50/50 p-6 dark:border-emerald-500/15 dark:bg-white/[0.02]">
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Subscription Overview</h2>
-                <SubscriptionChart data={data.subscriptionTypes} />
+                <SubscriptionChart data={data.subscriptionTypes!} />
               </div>
 
               <div className="rounded-2xl border border-violet-100 bg-slate-50/50 p-6 dark:border-violet-500/15 dark:bg-white/[0.02]">
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Monthly Posts</h2>
-                <PostsPerMonthChart perMonth={data.posts?.perMonth} />
+                <PostsPerMonthChart perMonth={data.posts!.perMonth} />
               </div>
 
               <div className="rounded-2xl border border-amber-100 bg-slate-50/50 p-6 dark:border-amber-500/15 dark:bg-white/[0.02]">
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Topics Analytics</h2>
-                <TopicsChart topics={data.posts?.topics} />
+                <TopicsChart topics={data.posts!.topics} />
               </div>
             </div>
           )}

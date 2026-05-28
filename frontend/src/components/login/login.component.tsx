@@ -149,7 +149,7 @@ const LoginComponent = () => {
               type="email"
               placeholder="Enter your email"
               required={true}
-              icon="fas fa-envelope"
+              icon="fi fi-rr-envelope"
               register={register}
               validation={{ required: "Email is required" }}
               error={errors.email}
@@ -161,7 +161,7 @@ const LoginComponent = () => {
               type="password"
               placeholder="Enter your password"
               required={true}
-              icon="fas fa-lock"
+              icon="fi fi-rr-lock"
               register={register}
               validation={{ required: "Password is required" }}
               error={errors.password}
