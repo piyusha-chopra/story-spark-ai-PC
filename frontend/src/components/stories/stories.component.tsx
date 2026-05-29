@@ -326,6 +326,33 @@ const StoriesComponent = () => {
     draft?.stories?.length ? draft.stories : [{uuid:"test-1",title:"The Wizard's Journey",content:"Merlin walked through the forest toward the castle. The village was far behind him. He crossed the bridge over the river and entered the dungeon beneath the tower. Dragons guarded the mountain beyond the valley. Elena watched from the palace window as Merlin approached the cave near the ocean shore.",tag:"Fantasy",imageURL:"https://via.placeholder.com/400x300"}]
   );
   const [loading, setLoading] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchFilter, setSearchFilter] = useState<string>("all");
+
+  const filteredStories = useMemo(() => {
+    if (!searchQuery.trim()) return stories;
+    
+    const query = searchQuery.toLowerCase();
+    
+    return stories.filter((story) => {
+      switch (searchFilter) {
+        case "title":
+          return story.title?.toLowerCase().includes(query);
+        case "content":
+          return story.content?.toLowerCase().includes(query);
+        case "genre":
+          return story.tag?.toLowerCase().includes(query);
+        case "all":
+        default:
+          return (
+            story.title?.toLowerCase().includes(query) ||
+            story.content?.toLowerCase().includes(query) ||
+            story.tag?.toLowerCase().includes(query)
+          );
+      }
+    });
+  }, [stories, searchQuery, searchFilter]);
+
   const { data } = useGetProfileInfoQuery(undefined);
   const userRole = getUserInfo();
   const login = isLoggedIn();
@@ -954,8 +981,41 @@ const StoriesComponent = () => {
       )}
 
       {loading && <StoryGeneratingAnimation onCancel={handleCancelGeneration} />}
+      
+      {/* Search UI */}
+      {stories.length > 0 && (
+        <div className="mb-6 bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 p-4 rounded-2xl">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search stories..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+            <select
+              value={searchFilter}
+              onChange={(e) => setSearchFilter(e.target.value)}
+              className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="all">All Fields</option>
+              <option value="title">Title</option>
+              <option value="content">Content</option>
+              <option value="genre">Genre</option>
+            </select>
+          </div>
+          {searchQuery && (
+            <div className="mt-2 text-sm text-slate-400">
+              Found {filteredStories.length} {filteredStories.length === 1 ? 'story' : 'stories'}
+            </div>
+          )}
+        </div>
+      )}
+
       <StoriesViewComponent
-        stories={stories}
+        stories={filteredStories}
         isLogin={login}
         setStories={setStories}
         onPublishSuccess={handlePublishSuccess}
