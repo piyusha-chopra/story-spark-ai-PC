@@ -41,10 +41,10 @@ const aiAlternateEndings = z.object({
     title: z.string({ required_error: "Title is required!" }),
     content: z.string({ required_error: "Content is required!" }),
     tag: z.string({ required_error: "Tag is required!" }),
-<<<<<<< HEAD
+
     prompt: z.string().optional(),
     wordLength: z.number().optional(),
-=======
+
     language: z.string().optional(),
   }),
 });
@@ -77,7 +77,7 @@ const aiTranslate = z.object({
     title: z.string({ required_error: "Title is required!" }),
     content: z.string().min(10).max(10000),
     language: z.string({ required_error: "Language is required!" }),
->>>>>>> upstream/main
+
   }),
 });
 

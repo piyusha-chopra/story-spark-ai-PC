@@ -428,10 +428,10 @@ const storiesPerPage = 10;
   const location = useLocation();
   const navigate = useNavigate();
   const { register, handleSubmit, reset, setValue } = useForm<Inputs>();
-<<<<<<< HEAD
+
   const [stories, setStories] = useState<IStories[]>([]);
   const [selectedStoryIndex, setSelectedStoryIndex] = useState<number | null>(null);
-=======
+
 
   const draft = useMemo(() => {
     try {
@@ -446,7 +446,7 @@ const storiesPerPage = 10;
     draft?.stories?.length ? getUniqueStories(draft.stories) : [{uuid:"test-1",title:"The Wizard's Journey",content:"Merlin walked through the forest toward the castle. The village was far behind him. He crossed the bridge over the river and entered the dungeon beneath the tower. Dragons guarded the mountain beyond the valley. Elena watched from the palace window as Merlin approached the cave near the ocean shore.",tag:"Fantasy",imageURL:""}]
   );
   
->>>>>>> upstream/main
+
   const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchFilter, setSearchFilter] = useState<string>("all");
@@ -498,13 +498,13 @@ useEffect(() => {
   const [generateFreeModel] = useGenerateFreeModelMutation();
   const [selectedPrompt, setSelectedPrompt] = useState<string>("");
   const [showHelpModal, setShowHelpModal] = useState(false);
-<<<<<<< HEAD
+
   const [selectedGenre, setSelectedGenre] = useState<string>("");
   const [selectedLength, setSelectedLength] = useState<string>("medium");
   const [textareaValue, setTextareaValue] = useState<string>(
     () => localStorage.getItem("storyPromptDraft") || ""
   );
-=======
+
   const [selectedGenre, setSelectedGenre] = useState<string>(
   draft?.genre
     ? (GENRES.find((g) => g.name === draft.genre || g.value === draft.genre)?.value ?? "ðŸ§™ Fantasy")
@@ -513,7 +513,7 @@ useEffect(() => {
   const [selectedLength, setSelectedLength] = useState<string>(draft?.length || "medium");
   const [selectedTone, setSelectedTone] = useState<ToneLabel | "">(draft?.tone || "Dramatic");
   const [textareaValue, setTextareaValue] = useState<string>(location.state?.prompt || draft?.prompt || "");
->>>>>>> upstream/main
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(draft?.language || "English");
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState<boolean>(false);
@@ -521,9 +521,9 @@ useEffect(() => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const languageDropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-<<<<<<< HEAD
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-=======
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
   const playSoundtrack = (genre: string) => {
@@ -547,14 +547,14 @@ useEffect(() => {
     audioRef.current = audio;
   };
 
->>>>>>> upstream/main
+
   const activeGenerationRef = useRef<{ abort: () => void } | null>(null);
   const isGenerationInProgressRef = useRef(false);
   const [guestRequestCount, setGuestRequestCount] = useState<number>(() =>
     parseInt(localStorage.getItem("guestRequestCount") || "0", 10)
   );
   const [showLimitModal, setShowLimitModal] = useState<boolean>(false);
-<<<<<<< HEAD
+
   const loadingMessages = [
     "✨ Crafting characters...",
     "🧠 Building plot...",
@@ -565,12 +565,12 @@ useEffect(() => {
 
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [isPromptCopied, setIsPromptCopied] = useState(false);
-=======
+
   const [isRecentPromptsOpen, setIsRecentPromptsOpen] = useState<boolean>(false);
   const { recentPrompts, addPrompt, removePrompt, clearAll } = useRecentPrompts();
   const text = UI_TEXT[selectedLanguage] ?? UI_TEXT.English;
   const genreLabels = GENRE_LABELS[selectedLanguage] ?? GENRE_LABELS.English;
->>>>>>> upstream/main
+
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -727,11 +727,11 @@ useEffect(() => {
           ? `[Genre: ${selectedGenre}] ${data.prompt}`
           : data.prompt,
         wordLength:
-<<<<<<< HEAD
+
           selectedLength === "short" ? 150
             : selectedLength === "long" ? 500
               : 250,
-=======
+
           selectedLength === "short"
             ? 175
             : selectedLength === "long"
@@ -739,7 +739,7 @@ useEffect(() => {
             : 450,
         language: selectedLanguage,
         tone: selectedTone || undefined,
->>>>>>> upstream/main
+
       };
       const generationRequest = login
         ? generateModel(payload)
@@ -748,7 +748,7 @@ useEffect(() => {
       const res = await generationRequest.unwrap();
       if (res) {
         toast.success(res.message);
-<<<<<<< HEAD
+
         if (selectedStoryIndex !== null) {
           setStories((prevStories) =>
             prevStories.map((story, index) =>
@@ -766,7 +766,7 @@ useEffect(() => {
         reset();
         setTextareaValue("");
         localStorage.removeItem("storyPromptDraft");
-=======
+
         addPrompt(data.prompt);
         setStories(getUniqueStories(res.data as IStories[]));
         setTextareaValue("");
@@ -775,7 +775,7 @@ useEffect(() => {
         if (selectedGenre) {
           playSoundtrack(selectedGenre);
         }
->>>>>>> upstream/main
+
         if (!login) {
           const newCount = guestRequestCount + 1;
           setGuestRequestCount(newCount);
@@ -787,15 +787,15 @@ useEffect(() => {
       if (message !== "Story generation was cancelled.") {
         toast.error(message);
       }
-<<<<<<< HEAD
+
     }
     finally {
-=======
+
     } finally {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
->>>>>>> upstream/main
+
       activeGenerationRef.current = null;
       isGenerationInProgressRef.current = false;
       setLoading(false);
@@ -805,12 +805,12 @@ useEffect(() => {
       }, 100);
     }
   };
-<<<<<<< HEAD
+
   const handleCancelGeneration = () => {
-=======
+
 
   const handleCancelGeneration = (isTimeout = false) => {
->>>>>>> upstream/main
+
     activeGenerationRef.current?.abort();
     activeGenerationRef.current = null;
     isGenerationInProgressRef.current = false;
@@ -892,21 +892,21 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 animate-gradient-slow transition-colors duration-300 dark:bg-[#0b1329] dark:text-white">
-<<<<<<< HEAD
+
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-6 flex flex-col lg:flex-row items-stretch lg:items-start justify-between gap-4">
           <div className="pt-2 w-full md:w-auto flex justify-start">
             <Link to="/">
               <div className="!rounded-button bg-gray-100/80 hover:bg-gray-200/80 text-slate-900 dark:bg-white/20 dark:hover:bg-white/30 dark:text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded border border-gray-200 dark:border-white/10">
                 <i className="fa-solid fa-left-long"></i> BACK
-=======
+
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
         <div className="py-6 flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
           <div className="pt-2 w-full md:w-auto flex justify-start">
             <Link to="/">
               <div className="!rounded-button bg-gray-100/80 hover:bg-gray-200/80 text-slate-900 dark:bg-white/20 dark:hover:bg-white/30 dark:text-gray-300 px-3 py-2 flex items-center gap-2 transition-all duration-300 rounded whitespace-nowrap border border-gray-200 dark:border-white/10">
                 <i className="fa-solid fa-left-long"></i> {text.back}
->>>>>>> upstream/main
+
               </div>
             </Link>
           </div>
@@ -934,7 +934,7 @@ useEffect(() => {
                 <span className="text-gray-400 text-xs">{text.perMonth}</span>{" "}
                 {getRequestLimit(userRole?.subscriptionType as string)}
               </span>
-<<<<<<< HEAD
+
               <Link
                 to="/pricing"
                 className="border-l border-white/20 pl-2 text-gray-300"
@@ -942,11 +942,11 @@ useEffect(() => {
                 Upgrade
               </Link>
 
-=======
+
               <Link to="/pricing" className="border-1 border-white/20 pl-2 text-gray-300">
                 {text.upgrade}
               </Link>
->>>>>>> upstream/main
+
               <i className="fas fa-bolt text-yellow-400"></i>
             </button>
             <div className="mt-3 text-slate-500 text-xs text-center md:text-right dark:text-gray-500">
@@ -961,13 +961,13 @@ useEffect(() => {
         </div>
 
         <div className="mt-11">
-<<<<<<< HEAD
+
           <h1 className="text-slate-900 dark:text-gray-300 text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-12 break-words leading-tight">
             ✨ Turn Your Ideas Into{" "}
-=======
+
           <h1 className="text-slate-900 dark:text-gray-300 text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-12">
             âœ¨ {text.titleStart}{" "}
->>>>>>> upstream/main
+
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-400">
               {text.titleAccent}
             </span>{" "}
@@ -975,7 +975,6 @@ useEffect(() => {
           </h1>
 
           <div className="max-w-3xl mx-auto px-4 sm:px-0">
-<<<<<<< HEAD
             <div className="bg-gray-50 rounded-md p-4 border border-gray-200 text-slate-900 dark:bg-blue-500/10 dark:border-gray-400 dark:text-white">
               <div className="relative">
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -1003,7 +1002,7 @@ useEffect(() => {
                           }`}
                       >
                         {genre}
-=======
+
             <div className="bg-gray-50 rounded-md p-4 border border-gray-200 text-slate-900 dark:bg-blue-500/10 dark:border-gray-400 dark:text-white overflow-hidden">
               <div className="relative w-full">
                 <form className="space-y-4 w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -1033,12 +1032,12 @@ useEffect(() => {
                         } ${loading ? "cursor-not-allowed opacity-50" : ""}`}
                       >
                         {genre.icon} {genreLabels[genre.name]}
->>>>>>> upstream/main
+
                       </button>
                     ))}
                   </div>
 
-<<<<<<< HEAD
+
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-xs text-gray-400 mr-1">📏 Length:</span>
 
@@ -1222,7 +1221,7 @@ useEffect(() => {
                       )}
                     </button>
                   </div>
-=======
+
                   {/* â”€â”€ NEW: Tone picker â”€â”€ */}
                   <TonePicker selected={selectedTone} onChange={setSelectedTone} />
 
@@ -1473,18 +1472,18 @@ useEffect(() => {
                       Your story is being generated. You can cancel the request if it takes too long.
                     </p>
                   )}
->>>>>>> upstream/main
+
                 </form>
               </div>
             </div>
 
             <div className="w-full max-w-2xl m-auto mt-4">
               <h1 className="text-sm text-slate-500 mb-1 dark:text-gray-500">
-<<<<<<< HEAD
+
                 Here are some example prompts you can refer to:-
-=======
+
                 {text.examples}
->>>>>>> upstream/main
+
               </h1>
 
               <div className="relative" ref={dropdownRef}>
@@ -1494,7 +1493,7 @@ useEffect(() => {
                   className="w-full p-3 bg-slate-800 text-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 flex items-center justify-between text-sm text-left transition-all duration-200"
                 >
                   <span className="truncate pr-4">
-<<<<<<< HEAD
+
                     {selectedPrompt || "Select a prompt"}
                   </span>
 
@@ -1508,7 +1507,7 @@ useEffect(() => {
 
                 {isDropdownOpen && (
                   <ul className="absolute z-10 w-full mt-1 max-h-60 overflow-y-auto bg-slate-800 border border-slate-700/50 rounded-lg shadow-xl focus:outline-none divide-y divide-slate-700/30">
-=======
+
                     {selectedPrompt || text.selectPrompt}
                   </span>
                   <span
@@ -1521,7 +1520,7 @@ useEffect(() => {
                 </button>
                 {isDropdownOpen && (
                   <ul className="relative z-10 w-full mt-1 max-h-60 overflow-y-auto bg-slate-800 border border-slate-700/50 rounded-lg shadow-xl focus:outline-none divide-y divide-slate-700/30">
->>>>>>> upstream/main
+
                     {prompts.map((item) => (
                       <li key={item.id}>
                         <button
@@ -1571,11 +1570,11 @@ useEffect(() => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 max-w-md w-full text-slate-900 dark:bg-slate-900 dark:border-slate-700 dark:text-white">
             <h2 className="text-xl font-bold text-slate-900 mb-4 dark:text-white">
-<<<<<<< HEAD
+
               Keyboard Shortcuts
-=======
+
               {text.shortcuts}
->>>>>>> upstream/main
+
             </h2>
 
             <div className="space-y-3 text-slate-600 text-sm dark:text-gray-300">
@@ -1630,12 +1629,11 @@ useEffect(() => {
         </div>
       )}
 
-<<<<<<< HEAD
+
       {loading && (
         <StoryGeneratingAnimation onCancel={handleCancelGeneration} />
       )}
-=======
->>>>>>> upstream/main
+
       <StoriesViewComponent
         stories={currentStories}
         isLogin={login}
@@ -1644,10 +1642,9 @@ useEffect(() => {
         onRegenerate={handleRegenerate}
         setSelectedStoryIndex={setSelectedStoryIndex}
       />
-<<<<<<< HEAD
+
       <div className="hidden lg:block absolute top-[-200px] left-[250px] w-[800px] h-[350px] bg-blue-500/20 rounded-full blur-3xl -z-10"></div>
-=======
->>>>>>> upstream/main
+
 
       <div className="fixed top-[-200px] left-[250px] w-[800px] h-[350px] bg-blue-500/20 rounded-full blur-3xl -z-10"></div>
       <div className="absolute top-[-200px] left-[250px] w-[800px] h-[350px] bg-blue-500/20 rounded-full blur-3xl -z-10"></div>

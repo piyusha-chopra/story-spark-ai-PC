@@ -98,13 +98,12 @@ const StoriesViewComponent: React.FC<StoriesComponentProps> = ({
   const [newTopicTitle, setNewTopicTitle] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
-<<<<<<< HEAD
+
   const [selectedParagraphIndex, setSelectedParagraphIndex] =
     useState<number | null>(null);
-=======
+
   const [showWorldMap, setShowWorldMap] = useState<boolean>(false);
 const [, setShowRemix] = useState<boolean>(false);
->>>>>>> upstream/main
   const [createPost] = useCreatePostMutation();
   const [deletePost] = useDeletePostMutation();
   const { data: profile } = useGetProfileInfoQuery(undefined, { skip: !isLogin });
@@ -385,10 +384,10 @@ const [, setShowRemix] = useState<boolean>(false);
 
   useEffect(() => {
     const autoSaveStory = async () => {
-<<<<<<< HEAD
+
       if (!selectedStory) return;
 
-=======
+
       // 1. Prevent guest auto-save requests
       if (!isLogin || !selectedStory) return;
 
@@ -407,14 +406,14 @@ const [, setShowRemix] = useState<boolean>(false);
 
       isSavingRef.current = true;
 
->>>>>>> upstream/main
+
       const post: IPost = {
         ...selectedStory,
         topic: selectTopics,
       };
 
       try {
-<<<<<<< HEAD
+
         await createPost(post).unwrap();
         toast.success("Story auto-saved!");
       } catch (error) {
@@ -429,7 +428,7 @@ const [, setShowRemix] = useState<boolean>(false);
     story: IStories,
     index: number
   ) => {
-=======
+
         const result = await createPost(post).unwrap();
         if (result && result.data && result.data._id) {
           savedPostIdRef.current = result.data._id;
@@ -453,7 +452,7 @@ const [, setShowRemix] = useState<boolean>(false);
   }, [selectedStory, selectedStory?.content, isLogin, selectTopics, createPost]);
 
   const handelStorySelection = (story: IStories) => {
->>>>>>> upstream/main
+
     setSelectedStory(story);
     setSelectedStoryIndex(index);
   };
@@ -764,7 +763,7 @@ const handleExportMarkdown = () => {
       const isoDate = new Date().toISOString().split("T")[0];
       const markdownContent = `---\ntitle: "${title.replace(/"/g, '\\"')}"\ntag: "${tag.replace(/"/g, '\\"')}"\nauthor: "${authorName.replace(/"/g, '\\"')}"\ndate: "${isoDate}"\n---\n\n# ${title}\n\n${content}\n`;
       const blob = new Blob([markdownContent], { type: "text/markdown;charset=utf-8;" });
-<<<<<<< HEAD
+
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -776,9 +775,9 @@ const handleExportMarkdown = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-=======
+
       downloadBlob(blob, getSafeFileName(title, "md"));
->>>>>>> upstream/main
+
       toast.success("Markdown downloaded!");
     } catch (error) { console.error(error); toast.error("Failed to export Markdown."); }
   };
@@ -828,9 +827,9 @@ const handleExportMarkdown = () => {
     return Math.max(1, Math.ceil(words / 200));
   };
 
-<<<<<<< HEAD
 
-=======
+
+
   const isNarrationActive = narrationState !== "idle";
 
 
@@ -841,7 +840,7 @@ if (isLoading) {
     </div>
   );
 }
->>>>>>> upstream/main
+
   if (!selectedStory) {
     return null;
   }
@@ -978,7 +977,7 @@ if (isLoading) {
             )}
 
             <div id="story-content" className="prose prose-invert max-w-none text-slate-300 leading-relaxed tracking-wide relative z-10">
-<<<<<<< HEAD
+
               <div className="space-y-5">
                 {selectedStory.content
                   .split("\n\n")
@@ -1006,7 +1005,7 @@ if (isLoading) {
                     </div>
                   ))}
               </div>
-=======
+
               <p className="break-words whitespace-pre-wrap">
                 {sentenceSegments.length > 0 ? (
                   sentenceSegments.map((segment: StorySentenceSegment) => {
@@ -1042,7 +1041,7 @@ if (isLoading) {
                 onWordIndexChange={setNarrationWordIndex}
                 onPlaybackStateChange={setNarrationState}
               />
->>>>>>> upstream/main
+
             </div>
           </div>
           <div className="mt-7">

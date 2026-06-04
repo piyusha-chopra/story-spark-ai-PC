@@ -89,13 +89,13 @@ UserSchema.pre("save", async function (next) {
   if (!user.isModified("password")) {
     return next();
   }
-<<<<<<< HEAD
+
 
   // Only hash password if it exists and is not empty (for password-based auth)
-=======
+
   
   // Only hash password if it exists, is not empty, and has been modified (for password-based auth)
->>>>>>> upstream/main
+
   // Skip for Google OAuth users who don't have passwords
   if (user.isModified("password") && user.password && user.password.trim() !== "") {
     user.password = await bcrypt.hash(
